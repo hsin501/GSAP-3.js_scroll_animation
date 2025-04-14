@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="透過GSAP與Three.js打造滾動動畫，探索幾何的起源、流動與創意構築。"
+    />
+
+    <title>GSAP x Three.js｜滾動動畫探索幾何世界</title>
+    <script type="module" crossorigin src="/GSAP-3.js_scroll_animation/assets/index-Bddjjt_N.js"></script>
+    <link rel="stylesheet" crossorigin href="/GSAP-3.js_scroll_animation/assets/index-BqRa1Sos.css">
+  </head>
+  <body>
+    <div id="app">
+      <canvas class="webgl"></canvas>
+      <header>
+        <div class="glass-container" id="glass">
+          <ul>
+            <li><a href="#section1">形之初源</a></li>
+            <li><a href="#section2">流轉幻變</a></li>
+            <li><a href="#section3">構築無限</a></li>
+          </ul>
+        </div>
+      </header>
+
+      <!-- ===== 顏色控制按鈕 ===== -->
+      <button
+        id="toggleColorButton"
+        class="glass-effect"
+        aria-label="打開顏色調整面板"
+      >
+        <!-- SVG 調色盤圖示 -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="100"
+          height="100"
+          viewBox="0 0 32 32"
+        >
+          <circle cx="10" cy="12" r="2" />
+          <circle cx="16" cy="9" r="2" />
+          <circle cx="22" cy="12" r="2" />
+          <circle cx="23" cy="18" r="2" />
+          <circle cx="19" cy="23" r="2" />
+          <path
+            d="M16.54,2A14,14,0,0,0,2,16a4.82,4.82,0,0,0,6.09,4.65l1.12-.31A3,3,0,0,1,13,23.24V27a3,3,0,0,0,3,3A14,14,0,0,0,30,15.46,14.05,14.05,0,0,0,16.54,2Zm8.11,22.31A11.93,11.93,0,0,1,16,28a1,1,0,0,1-1-1V23.24a5,5,0,0,0-5-5,5.07,5.07,0,0,0-1.33.18l-1.12.31A2.82,2.82,0,0,1,4,16,12,12,0,0,1,16.47,4,12.18,12.18,0,0,1,28,15.53,11.89,11.89,0,0,1,24.65,24.32Z"
+          />
+        </svg>
+      </button>
+
+      <!-- ===== 顏色控制面板  ===== -->
+      <div class="color-controls glass-effect">
+        <div class="control-item">
+          <label for="meshColorPicker">模型顏色</label>
+          <input type="color" id="meshColorPicker" value="#81D4FA" />
+        </div>
+        <div class="control-item">
+          <label for="particleColorPicker">雲朵顏色</label>
+          <input type="color" id="particleColorPicker" value="#CFD8DC" />
+        </div>
+      </div>
+      <!-- ============================== -->
+
+      <section class="section" id="section1">
+        <div class="section-content">
+          <h1>形之初源<br />start</h1>
+          <p>
+            一切起於無，幾何是視覺的第一筆語言。<br />
+            透過點、線、面之間的組合，我們窺見秩序的種子。<br />
+            「形之初源」，是一段對本質的探索，是一場關於結構的覺醒。
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="section2">
+        <div class="section-content">
+          <h1>流轉幻變<br />explore</h1>
+          <p>
+            形體不再靜止，律動是它們的靈魂。<br />
+            在時間的牽引下，圖像與空間產生變奏，像思緒般流轉。<br />
+            「流轉幻變」，是視覺的變形舞蹈，是感知的遷移之旅。
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="section3">
+        <div class="section-content">
+          <h1>構築無限<br />infinite</h1>
+          <p>
+            當幾何邁向第三維度，創造力突破框架。<br />
+            無限不只是數學的符號，它是形式的延伸與心靈的擴展。<br />
+            「構築無限」，象徵我們透過設計與科技，勾勒無邊的未來藍圖。
+          </p>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
