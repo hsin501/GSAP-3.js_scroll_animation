@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "gsap": "^3.12.7",
