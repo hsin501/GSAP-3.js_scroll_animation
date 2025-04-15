@@ -39,8 +39,6 @@ export function setupRenderer(canvas) {
     antialias: true, // 抗鋸齒
   });
   renderer.setSize(sizes.width, sizes.height);
-  // update renderer
-  renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   console.log('渲染器已加載');
   return renderer;

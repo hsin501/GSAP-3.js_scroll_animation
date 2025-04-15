@@ -48,64 +48,15 @@ particles
 //geometry
 
 //points
-function updateMeshPositionsForResponsiveness() {
-  if (!sectionMeshes || sectionMeshes < 3) return;
-  const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
-  sectionMeshes[0].position.x = isMobile ? 0 : 2;
-  sectionMeshes[1].position.x = isMobile ? 0 : -2;
-  sectionMeshes[2].position.x = isMobile ? 0 : 2;
-}
-// 首次載入時，根據當前的螢幕寬度設定一次位置
-updateMeshPositionsForResponsiveness();
-
-window.addEventListener('resize', () => {
-  // update sizes
-  sizes.width = window.innerWidth;
-  sizes.height = window.innerHeight;
-
-  // update camera
-  camera.aspect = sizes.width / sizes.height;
-  camera.updateProjectionMatrix();
-
-  // 每當視窗大小改變時，重新計算並設定 mesh 的位置
-  updateMeshPositionsForResponsiveness();
-});
 
 /**
  * scroll
  */
 let scrollY = window.scrollY;
-let currentSection = 0;
-window.addEventListener('scroll', () => {
-  scrollY = window.scrollY;
-  //計算當前滾動的區域
-  const newSection = Math.round(scrollY / sizes.height);
-  // console.log(newSection);
-  //更新Section
-  if (newSection != currentSection) {
-    currentSection = newSection;
-    // console.log('change', currentSection);
-    gsap.to(sectionMeshes[currentSection].rotation, {
-      duration: 1.5,
-      ease: 'power2.inOut',
-      x: '+=6',
-      y: '+=3',
-      z: '+=1.5',
-    });
-  }
-});
 
 /**
  * cursor
  */
-const cursor = {
-  x: 0,
-  y: 0,
-};
-window.addEventListener('mousemove', (event) => {
-  cursor.x = event.clientX / sizes.width - 0.5;
-  cursor.y = event.clientY / sizes.height - 0.5;
-});
 
 /**
  * animated
