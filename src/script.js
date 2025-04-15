@@ -1,8 +1,14 @@
 import './style.css';
 import * as THREE from 'three';
 import gsap from 'gsap';
-import * as GUI from 'lil-gui';
-
+// import * as GUI from 'lil-gui';
+import {
+  OBJECT_DISTANCE,
+  INITIAL_MESH_COLOR,
+  INIT_PARTICLE_COLOR,
+  PARTICLES_COUNT,
+  MOBILE_BREAKPOINT,
+} from './constants.js';
 // /**
 //  * debug
 //  */
@@ -33,16 +39,16 @@ const gradientTexture = textureLoader.load('static/3.jpg');
 gradientTexture.magFilter = THREE.NearestFilter; //漸變濾鏡
 
 //material
-const initialMeshColor = '#81D4FA'; //初始顏色
+// const initialMeshColor = '#81D4FA'; //初始顏色
 const material = new THREE.MeshToonMaterial({
   // color: debugObject.materiaColor,
-  color: initialMeshColor,
+  color: INITIAL_MESH_COLOR,
   gradientMap: gradientTexture,
   // wireframe: true, // 啟用線框模式
 });
 
 //meshs
-const objectDistance = 4; //物件間距
+
 const mesh1 = new THREE.Mesh(
   new THREE.TorusGeometry(1, 0.45, 12, 48),
   material
@@ -53,9 +59,9 @@ const mesh3 = new THREE.Mesh(
   material
 );
 
-mesh1.position.y = -objectDistance * 0;
-mesh2.position.y = -objectDistance * 1;
-mesh3.position.y = -objectDistance * 2;
+mesh1.position.y = -OBJECT_DISTANCE * 0;
+mesh2.position.y = -OBJECT_DISTANCE * 1;
+mesh3.position.y = -OBJECT_DISTANCE * 2;
 
 mesh1.position.x = 2;
 mesh2.position.x = -2;
@@ -69,15 +75,15 @@ const sectionMeshes = [mesh1, mesh2, mesh3];
 particles 
 */
 //geometry
-const particlesCount = 70;
-const positions = new Float32Array(particlesCount * 3); //每個粒子都有三個值(x,y,z)
 
-for (let i = 0; i < particlesCount; i++) {
+const positions = new Float32Array(PARTICLES_COUNT * 3); //每個粒子都有三個值(x,y,z)
+
+for (let i = 0; i < PARTICLES_COUNT; i++) {
   positions[i * 3 + 0] = (Math.random() - 0.5) * 10; //隨機生成x座標
   positions[i * 3 + 1] =
-    objectDistance * 0.5 -
-    Math.random() * objectDistance * sectionMeshes.length * 2; //隨機生成y座標
-  //或者可寫成 * objectDistance * 3
+    OBJECT_DISTANCE * 0.5 -
+    Math.random() * OBJECT_DISTANCE * sectionMeshes.length * 2; //隨機生成y座標
+  //或者可寫成 * OBJECT_DISTANCE * 3
   //用sectionMeshes.length 就算新增物件也不用重新修改
   positions[i * 3 + 2] = (Math.random() - 0.5) * 14; //隨機生成z座標
 }
@@ -87,11 +93,11 @@ particlesGeometry.setAttribute(
   new THREE.BufferAttribute(positions, 3)
 ); //3表示每個粒子都有三個值(x,y,z)
 //material
-const initParticleColor = '#CFD8DC';
+
 const particlesTexture = textureLoader.load('static/smoke_05.png');
 const particlesMaterial = new THREE.PointsMaterial({
   alphaMap: particlesTexture,
-  color: initParticleColor,
+  color: INIT_PARTICLE_COLOR,
   sizeAttenuation: true,
   size: 38,
   transparent: true,
@@ -118,9 +124,9 @@ const sizes = {
   width: window.innerWidth,
   height: window.innerHeight,
 };
-const mobileBreakpoint = 768;
+
 function updateMeshPositionsForResponsiveness() {
-  const isMobile = window.innerWidth < mobileBreakpoint;
+  const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
   // 根據螢幕大小調整位置
   // 如果是 mobile (isMobile 為 true)，就把 X 座標設為 0 (置中)
   // 否則 (桌面版)，使用你原本的數值
@@ -221,7 +227,7 @@ const tick = () => {
   previousTime = elapsedTime;
 
   //animate camera
-  camera.position.y = (-scrollY / sizes.height) * objectDistance;
+  camera.position.y = (-scrollY / sizes.height) * OBJECT_DISTANCE;
 
   const parallaxX = cursor.x * 0.5;
   const parallaxY = -cursor.y * 0.5;
@@ -254,8 +260,8 @@ const meshColorPicker = document.getElementById('meshColorPicker');
 const particleColorPicker = document.getElementById('particleColorPicker');
 
 // 設定選擇器的初始值 (雖然 HTML value 已設定，JS 再設一次確保同步)
-meshColorPicker.value = initialMeshColor;
-particleColorPicker.value = initParticleColor;
+meshColorPicker.value = INITIAL_MESH_COLOR;
+particleColorPicker.value = INIT_PARTICLE_COLOR;
 
 // 監聽模型顏色選擇器的變化 (使用 'input' 事件可即時反應)
 meshColorPicker.addEventListener('input', (event) => {
