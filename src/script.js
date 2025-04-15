@@ -10,17 +10,22 @@ import {
   MOBILE_BREAKPOINT,
 } from './constants.js';
 import { textureLoader, sizes } from './utils.js';
-import { createScene } from './setup.js';
+import {
+  createScene,
+  setupLights,
+  setupCamera,
+  setupRenderer,
+} from './setup.js';
 
-//canvas
 const canvas = document.querySelector('canvas.webgl');
 const scene = createScene();
+const { camera, cameraGroup } = setupCamera(scene);
+const renderer = setupRenderer(canvas);
+setupLights(scene);
 /**
  * objects
  */
-
 //texture
-
 const gradientTexture = textureLoader.load('static/3.jpg');
 gradientTexture.magFilter = THREE.NearestFilter; //漸變濾鏡
 
@@ -117,37 +122,9 @@ window.addEventListener('resize', () => {
   camera.aspect = sizes.width / sizes.height;
   camera.updateProjectionMatrix();
 
-  // update renderer
-  renderer.setSize(sizes.width, sizes.height);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); //WebGL 渲染器的像素比 window.devicePixelRatio：表示設備的實際像素與 CSS 像素的比例。普通顯示器：devicePixelRatio = 1；Retina 顯示器：devicePixelRatio = 2。
   // 每當視窗大小改變時，重新計算並設定 mesh 的位置
   updateMeshPositionsForResponsiveness();
 });
-
-/**
- * camera
- */
-const cameraGroup = new THREE.Group();
-scene.add(cameraGroup);
-const camera = new THREE.PerspectiveCamera(
-  35,
-  sizes.width / sizes.height,
-  0.1,
-  100
-);
-camera.position.z = 6;
-
-cameraGroup.add(camera);
-
-/**
- * render
- */
-const renderer = new THREE.WebGLRenderer({
-  canvas: canvas,
-  alpha: true,
-  antialias: true, // 抗鋸齒
-});
-renderer.setSize(sizes.width, sizes.height);
 
 /**
  * scroll
