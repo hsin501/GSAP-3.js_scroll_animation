@@ -16,99 +16,44 @@ import {
   setupCamera,
   setupRenderer,
 } from './setup.js';
+import {
+  loadTextures,
+  createMaterials,
+  createMeshes,
+  createParticles,
+} from './objects.js';
 
 const canvas = document.querySelector('canvas.webgl');
-const scene = createScene();
-const { camera, cameraGroup } = setupCamera(scene);
-const renderer = setupRenderer(canvas);
-setupLights(scene);
-/**
- * objects
- */
-//texture
-const gradientTexture = textureLoader.load('static/3.jpg');
-gradientTexture.magFilter = THREE.NearestFilter; //漸變濾鏡
+if (!canvas) {
+  throw new Error('No canvas found');
+} else {
+  //基礎設置(調用setup.js)
+  const scene = createScene();
+  const { camera, cameraGroup } = setupCamera(scene);
+  const renderer = setupRenderer(canvas);
+  setupLights(scene);
 
-//material
-// const initialMeshColor = '#81D4FA'; //初始顏色
-const material = new THREE.MeshToonMaterial({
-  // color: debugObject.materiaColor,
-  color: INITIAL_MESH_COLOR,
-  gradientMap: gradientTexture,
-  // wireframe: true, // 啟用線框模式
-});
-
-//meshs
-
-const mesh1 = new THREE.Mesh(
-  new THREE.TorusGeometry(1, 0.45, 12, 48),
-  material
-);
-const mesh2 = new THREE.Mesh(new THREE.ConeGeometry(1, 2, 24), material);
-const mesh3 = new THREE.Mesh(
-  new THREE.TorusKnotGeometry(0.8, 0.35, 80, 16),
-  material
-);
-
-mesh1.position.y = -OBJECT_DISTANCE * 0;
-mesh2.position.y = -OBJECT_DISTANCE * 1;
-mesh3.position.y = -OBJECT_DISTANCE * 2;
-
-mesh1.position.x = 2;
-mesh2.position.x = -2;
-mesh3.position.x = 2;
-
-scene.add(mesh1, mesh2, mesh3);
-
-const sectionMeshes = [mesh1, mesh2, mesh3];
+  //創建場景物件(調用objects.js)
+  const textures = loadTextures();
+  const materials = createMaterials(textures);
+  const sectionMeshes = createMeshes(materials.material);
+  scene.add(...sectionMeshes);
+  const particles = createParticles(materials.particlesMaterial, sectionMeshes);
+  scene.add(particles);
+}
 
 /**
 particles 
 */
 //geometry
 
-const positions = new Float32Array(PARTICLES_COUNT * 3); //每個粒子都有三個值(x,y,z)
-
-for (let i = 0; i < PARTICLES_COUNT; i++) {
-  positions[i * 3 + 0] = (Math.random() - 0.5) * 10; //隨機生成x座標
-  positions[i * 3 + 1] =
-    OBJECT_DISTANCE * 0.5 -
-    Math.random() * OBJECT_DISTANCE * sectionMeshes.length * 2; //隨機生成y座標
-  //或者可寫成 * OBJECT_DISTANCE * 3
-  //用sectionMeshes.length 就算新增物件也不用重新修改
-  positions[i * 3 + 2] = (Math.random() - 0.5) * 14; //隨機生成z座標
-}
-const particlesGeometry = new THREE.BufferGeometry();
-particlesGeometry.setAttribute(
-  'position',
-  new THREE.BufferAttribute(positions, 3)
-); //3表示每個粒子都有三個值(x,y,z)
-//material
-
-const particlesTexture = textureLoader.load('static/smoke_05.png');
-const particlesMaterial = new THREE.PointsMaterial({
-  alphaMap: particlesTexture,
-  color: INIT_PARTICLE_COLOR,
-  sizeAttenuation: true,
-  size: 38,
-  transparent: true,
-  depthWrite: false, // 深度寫入
-  opacity: 0.25,
-  blending: THREE.AdditiveBlending, // 混合模式
-  sizeAttenuation: true,
-});
 //points
-const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-scene.add(particles);
-
 function updateMeshPositionsForResponsiveness() {
+  if (!sectionMeshes || sectionMeshes < 3) return;
   const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
-  // 根據螢幕大小調整位置
-  // 如果是 mobile (isMobile 為 true)，就把 X 座標設為 0 (置中)
-  // 否則 (桌面版)，使用你原本的數值
-  mesh1.position.x = isMobile ? 0 : 2;
-  mesh2.position.x = isMobile ? 0 : -2;
-  mesh3.position.x = isMobile ? 0 : 2;
+  sectionMeshes[0].position.x = isMobile ? 0 : 2;
+  sectionMeshes[1].position.x = isMobile ? 0 : -2;
+  sectionMeshes[2].position.x = isMobile ? 0 : 2;
 }
 // 首次載入時，根據當前的螢幕寬度設定一次位置
 updateMeshPositionsForResponsiveness();
