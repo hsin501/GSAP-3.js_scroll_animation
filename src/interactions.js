@@ -9,7 +9,9 @@ let currentSection = 0;
  * 設置滾動事件監聽器，觸發模型進入視圖時的動畫
  * @param {THREE.Mesh[]} sectionMeshes - 需要動畫的模型數組
  */
-export function setupScrollLinstener(sectionMeshes) {
+export function setupScrollListener(sectionMeshes) {
+  if (!Array.isArray(sectionMeshes) || sectionMeshes.length === 0) return; // 確保 sectionMeshes 是有效的數組
+
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY; // 獲取當前滾動位置
 
@@ -145,7 +147,7 @@ export function setupDOMInteractions(material, particlesMaterial) {
   }
 
   //=====修復觸控裝置的 hover 效果=====
-  const navItems = document.querySelectorAll('.glass-container ul li');
+  const navItems = document.querySelectorAll('.container ul li');
   if (navItems.length > 0) {
     // 先移除所有的 touch-hover class
     const removeAllTouchHover = () => {
@@ -167,13 +169,13 @@ export function setupDOMInteractions(material, particlesMaterial) {
         },
         { passive: true }
       );
-      const removeHover = () => this.classList.remove('touch-hover'); // 需要在外部定義 this
+      const removeHover = () => item.classList.remove('touch-hover'); // 需要在外部定義 this
       // --- 觸控結束 ---
       item.addEventListener('touchend', removeHover, { passive: true });
       // --- 觸控取消 ---
       item.addEventListener('touchcancel', removeHover, { passive: true });
-      // --- 保險措施：滾動時清除所有高亮 ---
     });
+    // --- 保險措施：滾動時清除所有高亮 ---
     window.addEventListener('scroll', removeAllTouchHover, { passive: true });
     console.log('觸控裝置的 hover 效果已應用');
   } else {

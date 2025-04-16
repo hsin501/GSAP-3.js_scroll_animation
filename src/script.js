@@ -13,7 +13,7 @@ import {
   createParticles,
 } from './objects.js';
 import {
-  setupScrollLinstener,
+  setupScrollListener,
   setupCursorListener,
   setupResizeListener,
   setupDOMInteractions,
@@ -41,7 +41,7 @@ if (!canvas) {
 
   //==== 交互邏輯(調用interactions.js) ====
   setupResizeListener(camera, renderer, sectionMeshes);
-  setupScrollLinstener(sectionMeshes);
+  setupScrollListener(sectionMeshes);
   setupCursorListener();
   setupDOMInteractions(materials.material, materials.particlesMaterial);
 
