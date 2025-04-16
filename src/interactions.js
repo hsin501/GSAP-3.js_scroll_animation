@@ -1,11 +1,6 @@
 import gsap from 'gsap';
 import { sizes } from './utils';
-import {
-  INITIAL_MESH_COLOR,
-  INIT_PARTICLE_COLOR,
-  MOBILE_BREAKPOINT,
-} from './constants';
-import { log } from 'three/tsl';
+import { MOBILE_BREAKPOINT } from './constants';
 
 export const cursor = { x: 0, y: 0 };
 let currentSection = 0;
@@ -97,7 +92,7 @@ export function setupResizeListener(camera, renderer, sectionMeshes) {
  * @param {THREE.PointsMaterial} particlesMaterial - 粒子材質 (用於顏色選擇器更新)
  */
 
-export function setDOMInteractions(material, particlesMaterial) {
+export function setupDOMInteractions(material, particlesMaterial) {
   // ===== 顏色選擇器 =====
   const meshColorPicker = document.getElementById('meshColorPicker');
   const particleColorPicker = document.getElementById('particleColorPicker');

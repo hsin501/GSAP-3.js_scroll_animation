@@ -1,15 +1,5 @@
 import './style.css';
-import * as THREE from 'three';
-
 // import * as GUI from 'lil-gui';
-import {
-  OBJECT_DISTANCE,
-  INITIAL_MESH_COLOR,
-  INIT_PARTICLE_COLOR,
-  PARTICLES_COUNT,
-  MOBILE_BREAKPOINT,
-} from './constants.js';
-import { textureLoader, sizes } from './utils.js';
 import {
   createScene,
   setupLights,
@@ -26,7 +16,7 @@ import {
   setupScrollLinstener,
   setupCursorListener,
   setupResizeListener,
-  setDOMInteractions,
+  setupDOMInteractions,
 } from './interactions.js';
 import { startAnimation } from './animation.js';
 
@@ -53,7 +43,7 @@ if (!canvas) {
   setupResizeListener(camera, renderer, sectionMeshes);
   setupScrollLinstener(sectionMeshes);
   setupCursorListener();
-  setDOMInteractions(materials.material, materials.particlesMaterial);
+  setupDOMInteractions(materials.material, materials.particlesMaterial);
 
   //==== 動畫循環(調用animation.js) ====
   startAnimation(scene, camera, cameraGroup, renderer, sectionMeshes);
