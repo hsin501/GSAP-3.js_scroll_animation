@@ -101,27 +101,28 @@ export function setDOMInteractions(material, particlesMaterial) {
   // ===== 顏色選擇器 =====
   const meshColorPicker = document.getElementById('meshColorPicker');
   const particleColorPicker = document.getElementById('particleColorPicker');
-}
-if (meshColorPicker && particleColorPicker) {
-  // 設置初始顏色值 (從材質獲取，確保同步)
-  // 注意：要確保 material 和 particlesMaterial 已經創建
-  if (material) meshColorPicker.value = '#' + material.color.getHexString();
-  if (particlesMaterial)
-    particleColorPicker.value = '#' + particlesMaterial.color.getHexString();
 
-  // 監聽模型顏色選擇器的變化
-  meshColorPicker.addEventListener('input', (event) => {
-    const newColor = event.target.value;
-    material.color.set(newColor); // 更新共用的 material 顏色
-  });
-  // 監聽粒子顏色選擇器的變化
-  particleColorPicker.addEventListener('input', (event) => {
-    const newColor = event.target.value;
-    particlesMaterial.color.set(newColor); // 更新粒子 material 顏色
-  });
-  console.log('顏色選擇器已設置');
-} else {
-  console.error('顏色選擇器未找到');
+  if (meshColorPicker && particleColorPicker) {
+    // 設置初始顏色值 (從材質獲取，確保同步)
+    // 注意：要確保 material 和 particlesMaterial 已經創建
+    if (material) meshColorPicker.value = '#' + material.color.getHexString();
+    if (particlesMaterial)
+      particleColorPicker.value = '#' + particlesMaterial.color.getHexString();
+
+    // 監聽模型顏色選擇器的變化
+    meshColorPicker.addEventListener('input', (event) => {
+      const newColor = event.target.value;
+      material.color.set(newColor); // 更新共用的 material 顏色
+    });
+    // 監聽粒子顏色選擇器的變化
+    particleColorPicker.addEventListener('input', (event) => {
+      const newColor = event.target.value;
+      particlesMaterial.color.set(newColor); // 更新粒子 material 顏色
+    });
+    console.log('顏色選擇器已設置');
+  } else {
+    console.error('顏色選擇器未找到');
+  }
 
   //===== 顯示/隱藏顏色選擇器面板 =====
   const toggleButton = document.getElementById('toggleColorButton');

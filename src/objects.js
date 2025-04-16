@@ -98,11 +98,11 @@ export function createParticles(particlesMaterial, sectionMeshes) {
   const meshCount = sectionMeshes.length > 0 ? sectionMeshes.length : 3; // 安全處理，避免 length 為 0
 
   for (let i = 0; i < PARTICLES_COUNT; i++) {
-    positions[i * 3 + 0] = (Math.random() - 0.5) * 10; //隨機生成x座標
-    positions[i * 3 + 1] =
-      OBJECT_DISTANCE * 0.5 -
-      Math.random() * OBJECT_DISTANCE * meshCount.length * 2; //隨機生成y座標
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 14; //隨機生成z座標
+    const i3 = i * 3;
+    positions[i3 + 0] = (Math.random() - 0.5) * 10; //隨機生成x座標
+    positions[i3 + 1] =
+      OBJECT_DISTANCE * 0.5 - Math.random() * OBJECT_DISTANCE * meshCount * 2; //隨機生成y座標
+    positions[i3 + 2] = (Math.random() - 0.5) * 14; //隨機生成z座標
   }
   //創建BufferGeometry並設置位置屬性
   const particlesGeometry = new THREE.BufferGeometry();
