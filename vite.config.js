@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/Cloudform/',
+  base: '/Refactor_scroll_animation/',
 });

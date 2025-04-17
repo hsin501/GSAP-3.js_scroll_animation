@@ -147,7 +147,7 @@ export function setupDOMInteractions(material, particlesMaterial) {
   }
 
   //=====修復觸控裝置的 hover 效果=====
-  const navItems = document.querySelectorAll('.container ul li');
+  const navItems = document.querySelectorAll('.glass-container ul li');
   if (navItems.length > 0) {
     // 先移除所有的 touch-hover class
     const removeAllTouchHover = () => {
@@ -169,7 +169,7 @@ export function setupDOMInteractions(material, particlesMaterial) {
         },
         { passive: true }
       );
-      const removeHover = () => item.classList.remove('touch-hover'); // 需要在外部定義 this
+      const removeHover = () => item.classList.remove('touch-hover');
       // --- 觸控結束 ---
       item.addEventListener('touchend', removeHover, { passive: true });
       // --- 觸控取消 ---

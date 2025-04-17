@@ -79,7 +79,7 @@ section:nth-child(even) {
   justify-content: flex-end;
 }
 
-.container {
+.glass-container {
   position: fixed;
   top: 2%;
   left: 50%;
@@ -90,9 +90,16 @@ section:nth-child(even) {
   display: flex;
   gap: 1.25rem;
   z-index: 100;
+  border-radius: 3.125rem;
+  backdrop-filter: blur(4px);
+  background-color: rgba(165, 173, 192, 0.092);
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
+  border: 2px rgba(154, 153, 160, 0.4) solid;
+  border-bottom: 2px rgba(40, 40, 40, 0.35) solid;
+  border-right: 2px rgba(40, 40, 40, 0.35) solid;
 }
 
-.container ul {
+.glass-container ul {
   display: flex;
   list-style: none;
   gap: 0;
@@ -103,14 +110,14 @@ section:nth-child(even) {
   margin-right: 10%;
 }
 
-.container li {
+.glass-container li {
   flex: 1;
   position: relative;
   padding: 1.2rem 0;
   transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
 }
 
-.container li a {
+.glass-container li a {
   display: block;
   text-decoration: none;
   font-family: 'Cabin', sans-serif;
@@ -124,24 +131,38 @@ section:nth-child(even) {
   transition: background 0.3s ease;
 }
 @media (hover: hover) {
-  .container li:first-child:hover a {
+  .glass-container li:first-child:hover a {
     color: #2a2d50;
     transition: all 0.3s ease;
+    background: rgba(181, 193, 211, 0.34);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 50px 0 0 50px;
+    backdrop-filter: blur(14.9px);
+    -webkit-backdrop-filter: blur(14.9px);
   }
 
-  .container li:not(:first-child):not(:last-child):hover a {
+  .glass-container li:not(:first-child):not(:last-child):hover a {
     color: #2a2d50;
+    background: rgba(181, 193, 211, 0.34);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(14.9px);
+    -webkit-backdrop-filter: blur(14.9px);
   }
 
-  .container li:last-child:hover a {
+  .glass-container li:last-child:hover a {
     color: #2a2d50;
     transition: all 0.3s ease;
     border-radius: 0 50px 50px 0;
+    background: rgba(181, 193, 211, 0.34);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(14.9px);
+    -webkit-backdrop-filter: blur(14.9px);
   }
 }
 
 /* 分隔線（不作用於最後一個） */
-.container li:not(:last-child)::after {
+
+.glass-container li:not(:last-child)::after {
   content: '';
   position: absolute;
   right: 0;
@@ -153,15 +174,19 @@ section:nth-child(even) {
 
 /* 針對行動裝置優化 */
 
-.container li.touch-hover a {
+.glass-container li.touch-hover a {
+  background: rgba(181, 193, 211, 0.34);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(14.9px);
+  -webkit-backdrop-filter: blur(14.9px);
   color: #2a2d50;
 }
 
-.container li:first-child.touch-hover a {
+.glass-container li:first-child.touch-hover a {
   border-radius: 50px 0 0 50px;
 }
 
-.container li:last-child.touch-hover a {
+.glass-container li:last-child.touch-hover a {
   border-radius: 0 50px 50px 0;
 }
 
